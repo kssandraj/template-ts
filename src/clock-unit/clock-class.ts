@@ -1,4 +1,11 @@
-import "../index.css";
+import "../style/index.css";
+
+export type Timezone =
+  | "UTC"
+  | "America/New_York"
+  | "Asia/Jakarta"
+  | "Europe/Moscow"
+  | "Europe/Oslo";
 
 export class ClockApp {
   private hoursElement: HTMLElement;
@@ -11,10 +18,10 @@ export class ClockApp {
   private screen: HTMLElement | null;
   private increaseEnabled: boolean;
   private manualAdjustmentTime: number; // Storing manual adjustments in milliseconds
-  private timezone: string;
+  private timezone: Timezone;
   private modeClickCount: number;
 
-  constructor(clockId: string, timezone: string = "UTC") {
+  constructor(clockId: string, timezone: Timezone = "UTC") {
     const clockElement = document.getElementById(clockId);
     if (!clockElement) throw new Error("Clock element not found");
 

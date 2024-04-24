@@ -1,4 +1,4 @@
-import { ClockApp } from "./clock-class";
+import { ClockApp, Timezone } from "./clock-class";
 
 export function addNewClock(): void {
   const newClockId = `clock${document.querySelectorAll(".clock").length + 1}`;
@@ -22,8 +22,14 @@ export function addNewClock(): void {
 
   document.body.appendChild(newClockContainer);
 
+  // Get the selected timezone from the dropdown menu
+  const timezoneSelector = document.getElementById(
+    "timezoneSelector"
+  ) as HTMLSelectElement;
+  const selectedTimezone = timezoneSelector.value as Timezone;
+
   // Initialize ClockApp for the new clock
-  new ClockApp(newClockId);
+  new ClockApp(newClockId, selectedTimezone);
 }
 
 document.addEventListener("click", (event) => {
