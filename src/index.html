@@ -1,25 +1,65 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- support for mobile touch devices -->
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-</head>
-<body>
-    <div class="watch">
-    <div class="screen">
-        <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
+    />
+  </head>
+  <body>
+    <div id="clock1" class="clock">
+      <div class="watch">
+        <div class="screen">
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span
+            id="seconds"
+            >00</span
+          >
+        </div>
       </div>
-    </div>
       <div>
         <button id="modeButton">Mode</button>
         <button id="increaseButton" disabled>Increase</button>
         <button id="resetButton">Reset</button>
         <button id="lightButton">Light</button>
       </div>
-      <script src="index.js"></script>
-      </body>
-</body>
+    </div>
+    <div id="clock2" class="clock">
+      <div class="watch">
+        <div class="screen">
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span
+            id="seconds"
+            >00</span
+          >
+        </div>
+      </div>
+      <div>
+        <button id="modeButton">Mode</button>
+        <button id="increaseButton" disabled>Increase</button>
+        <button id="resetButton">Reset</button>
+        <button id="lightButton">Light</button>
+      </div>
+    </div>
+    <div id="clock3" class="clock">
+      <div class="watch">
+        <div class="screen">
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span
+            id="seconds"
+            >00</span
+          >
+        </div>
+      </div>
+      <div>
+        <button id="modeButton">Mode</button>
+        <button id="increaseButton" disabled>Increase</button>
+        <button id="resetButton">Reset</button>
+        <button id="lightButton">Light</button>
+      </div>
+    </div>
+    <button id="addClockButton">One more</button>
+
+    <script src="index.ts"></script>
+  </body>
 </html>
