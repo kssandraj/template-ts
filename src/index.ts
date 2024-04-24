@@ -11,21 +11,3 @@ clockIds.forEach((id, index) => new ClockApp(id, timezones[index] as Timezone));
 // To add a new clock
 const addClockButton = document.getElementById("addClockButton");
 addClockButton.addEventListener("click", addNewClock);
-
-// To change the format diplayed
-const formatButton = document.getElementById("formatButton");
-formatButton.addEventListener("click", toggleTimeFormat);
-
-function toggleTimeFormat() {
-  console.log("coucou");
-  // Toggle the time format for all clocks
-  clockIds.forEach((id) => {
-    const clockElement = document.getElementById(id);
-    if (clockElement) {
-      const clock = clockElement.querySelector(".screen");
-      if (clock) {
-        clock.classList.toggle("twenty-four-hour");
-      }
-    }
-  });
-}

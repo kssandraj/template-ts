@@ -1,4 +1,26 @@
-/* styling the clocks */
+h1 {
+  text-align: center;
+  padding-bottom: 2.5rem;
+}
+
+.clock-box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  width: auto;
+}
+
+.clock {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .watch {
   background-color: darkblue;
   border-radius: 50%;
@@ -19,4 +41,12 @@
   border: 0.5mm solid darkolivegreen;
   width: 5rem;
   border-radius: 10%/20%;
+}
+
+.common-buttons {
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }

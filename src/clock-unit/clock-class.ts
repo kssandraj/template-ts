@@ -17,9 +17,14 @@ export class ClockApp {
   private lightButton: HTMLElement;
   private screen: HTMLElement | null;
   private increaseEnabled: boolean;
-  private manualAdjustmentTime: number; // Storing manual adjustments in milliseconds
+  private manualAdjustmentTime: number;
   private timezone: Timezone;
   private modeClickCount: number;
+  private twentyFourHourFormat?: boolean;
+  public toggleFormat(): void {
+    this.twentyFourHourFormat = !this.twentyFourHourFormat;
+    this.updateTime();
+  }
 
   constructor(clockId: string, timezone: Timezone = "UTC") {
     const clockElement = document.getElementById(clockId);
@@ -40,8 +45,9 @@ export class ClockApp {
     ) as HTMLElement;
     this.screen = clockElement.querySelector(".screen");
     this.increaseEnabled = false;
-    this.manualAdjustmentTime = 0; // Initial manual adjustment is zero
+    this.manualAdjustmentTime = 0;
     this.timezone = timezone;
+    this.twentyFourHourFormat = true;
     this.modeClickCount = 0;
 
     this.setupEventListeners();
@@ -57,7 +63,7 @@ export class ClockApp {
       minute: "2-digit",
       second: "2-digit",
       timeZone: this.timezone,
-      hour12: false,
+      hour12: !this.twentyFourHourFormat,
     });
 
     const formattedTime = formatter.format(now);
@@ -68,14 +74,13 @@ export class ClockApp {
   }
 
   private toggleMode(): void {
+    // modeClickCount can only be 0, 1 or 2 so that we know which mode is enabled
     this.modeClickCount = (this.modeClickCount + 1) % 3;
-    console.log("toggle Mode", this.modeClickCount);
     this.increaseEnabled = this.modeClickCount !== 0;
     this.increaseButton.disabled = !this.increaseEnabled;
   }
 
   private increaseTime(): void {
-    console.log("Mode click count in increase time", this.modeClickCount);
     if (!this.increaseEnabled) return;
 
     if (this.modeClickCount === 1) {
@@ -87,7 +92,7 @@ export class ClockApp {
   }
 
   private resetTime(): void {
-    this.manualAdjustmentTime = 0; // Reset manual adjustments
+    this.manualAdjustmentTime = 0;
     this.updateTime();
   }
 
@@ -103,9 +108,15 @@ export class ClockApp {
     this.increaseButton.addEventListener("click", () => this.increaseTime());
     this.resetButton.addEventListener("click", () => this.resetTime());
     this.lightButton.addEventListener("click", () => this.turnScreenWhite());
+    const formatButton = document.getElementById("formatButton");
+    if (formatButton) {
+      formatButton.addEventListener("click", () => this.toggleFormat());
+    }
   }
 
   private startClock(): void {
-    setInterval(() => this.updateTime(), 1000);
+    setInterval(() => {
+      this.updateTime();
+    }, 1000);
   }
 }

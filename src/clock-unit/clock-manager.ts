@@ -20,9 +20,14 @@ export function addNewClock(): void {
       </div>
     `;
 
-  document.body.appendChild(newClockContainer);
+  const clockBoxContainer = document.querySelector(".clock-box");
+  if (clockBoxContainer) {
+    // Append the new clock container to the clock-box container
+    clockBoxContainer.appendChild(newClockContainer);
+  } else {
+    document.body.appendChild(newClockContainer);
+  }
 
-  // Get the selected timezone from the dropdown menu
   const timezoneSelector = document.getElementById(
     "timezoneSelector"
   ) as HTMLSelectElement;
@@ -33,14 +38,11 @@ export function addNewClock(): void {
 }
 
 document.addEventListener("click", (event) => {
+  // Handling the buttons
   const target = event.target as HTMLElement;
   if (target.querySelector("#modeButton")) {
-    // Handle mode button click
   } else if (target.querySelector("#increaseButton")) {
-    // Handle increase button click
   } else if (target.querySelector("#resetButton")) {
-    // Handle reset button click
   } else if (target.querySelector("#lightButton")) {
-    // Handle light button click
   }
 });
