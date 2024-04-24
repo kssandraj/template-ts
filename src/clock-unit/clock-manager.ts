@@ -9,14 +9,14 @@ export function addNewClock(): void {
   newClockContainer.innerHTML = `
       <div class="watch">
         <div class="screen">
-          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
         </div>
       </div>
       <div>
-        <button class="modeButton">Mode</button>
-        <button class="increaseButton" disabled>Increase</button>
-        <button class="resetButton">Reset</button>
-        <button class="lightButton">Light</button>
+        <button id="modeButton">Mode</button>
+        <button id="increaseButton" disabled>Increase</button>
+        <button id="resetButton">Reset</button>
+        <button id="lightButton">Light</button>
       </div>
     `;
 
@@ -28,13 +28,13 @@ export function addNewClock(): void {
 
 document.addEventListener("click", (event) => {
   const target = event.target as HTMLElement;
-  if (target.classList.contains("modeButton")) {
+  if (target.querySelector("#modeButton")) {
     // Handle mode button click
-  } else if (target.classList.contains("increaseButton")) {
+  } else if (target.querySelector("#increaseButton")) {
     // Handle increase button click
-  } else if (target.classList.contains("resetButton")) {
+  } else if (target.querySelector("#resetButton")) {
     // Handle reset button click
-  } else if (target.classList.contains("lightButton")) {
+  } else if (target.querySelector("#lightButton")) {
     // Handle light button click
   }
 });
