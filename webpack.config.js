@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/view/index.ts",
   devtool: "source-map",
   target: "node",
   module: {
@@ -28,7 +28,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "GE Template ts",
-      template: path.join(process.cwd(), "src/index.html"),
+      template: path.join(process.cwd(), "src/view/index.html"),
       filename: "index.html",
     }),
   ],

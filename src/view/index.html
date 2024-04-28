@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- support for mobile touch devices -->
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
+    />
+  </head>
+  <body>
+    <h1>Clock Test</h1>
+    <div class="clocksDisplayed">
+      <div id="clockContainer1"></div>
+      <div id="clockContainer2"></div>
+      <div id="clockContainer3"></div>
+    </div>
+    <div class="commonButtons">
+      <button id="oneMoreButton">One More</button>
+      <span>
+        Select your Timezone:
+        <select id="timezoneSelect">
+          <option value="America/New_York">America/New_York</option>
+          <option value="Asia/Jakarta">Asia/Jakarta</option>
+          <option value="Europe/Moscow">Europe/Moscow</option>
+          <option value="Europe/Oslo">Europe/Oslo</option>
+        </select>
+      </span>
+    </div>
+
+    <script src="clockModel.js"></script>
+    <script src="clockView.js"></script>
+    <script src="clockController.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const model = new ClockModel();
+        const view = new ClockView("clockContainer");
+        const controller = new ClockController(model, view);
+        controller.initialize();
+      });
+    </script>
+  </body>
+</html>
