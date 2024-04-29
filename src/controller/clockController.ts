@@ -8,13 +8,11 @@ export class ClockController {
   private updateInterval: NodeJS.Timer | undefined;
   private increaseEnabled: boolean;
   private twentyFourHourFormat?: boolean;
-  private manualAdjustmentTime: number;
 
   constructor(model: Clock, view: ClockView) {
     this.model = model;
     this.view = view;
 
-    this.manualAdjustmentTime = 0;
     this.increaseEnabled = false;
     this.twentyFourHourFormat = false;
 
@@ -39,8 +37,7 @@ export class ClockController {
   }
 
   private handleReset(): void {
-    this.manualAdjustmentTime = 0;
-    this.model.toggleMode(0);
+    this.model.resetTime();
     this.updateTime();
   }
 
@@ -57,23 +54,15 @@ export class ClockController {
   }
 
   private handleIncrease(): void {
-    const oneHour = 3600000;
-    const oneMinute = 60000;
-    console.log("increaseEnabled", this.increaseEnabled);
     if (this.increaseEnabled) {
       this.model.increase();
-      if (this.model.getMode() === 1) {
-        this.manualAdjustmentTime = this.manualAdjustmentTime + oneHour;
-      } else if (this.model.getMode() === 2) {
-        this.manualAdjustmentTime = this.manualAdjustmentTime + oneMinute;
-      }
       this.updateTime();
     }
   }
 
   private updateTime(): void {
     // Calculate the current time considering manual adjustments
-    const now = new Date(new Date().getTime() + this.manualAdjustmentTime);
+    const now = new Date(new Date().getTime() + this.model.getTime());
 
     const formatter = new Intl.DateTimeFormat("en-US", {
       hour: "2-digit",

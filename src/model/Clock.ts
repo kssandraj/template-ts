@@ -8,10 +8,11 @@ export type Timezone =
 export class Clock {
   private timezone: Timezone;
   private mode: number = 0;
-  private time: string;
+  private time: number;
 
   constructor(timezone: Timezone = "UTC") {
     this.timezone = timezone;
+    this.time = 0;
   }
 
   public toggleMode(modeClickCount?: number): void {
@@ -26,13 +27,22 @@ export class Clock {
     return this.mode;
   }
 
+  public getTime(): number {
+    return this.time;
+  }
+
+  public resetTime(): void {
+    this.toggleMode(0);
+    this.time = 0;
+  }
+
   public increase(): void {
     const oneHour = 3600000;
     const oneMinute = 60000;
     if (this.getMode() === 1) {
-      this.time + oneHour;
+      this.time = this.time + oneHour;
     } else if (this.getMode() === 2) {
-      this.time + oneMinute;
+      this.time = this.time + oneMinute;
     }
   }
 
