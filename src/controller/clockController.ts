@@ -30,10 +30,6 @@ export class ClockController {
     this.startClock();
   }
 
-  public setIncreaseEnabled(increaseEnabled: boolean): void {
-    this.increaseEnabled = increaseEnabled;
-  }
-
   public startClock(): void {
     // Update the clock every second
     this.updateInterval = setInterval(
@@ -55,7 +51,7 @@ export class ClockController {
   private handleModeChange(): void {
     this.model.toggleMode();
     if (this.model.getMode() === 1 || this.model.getMode() === 2) {
-      this.setIncreaseEnabled(true);
+      this.increaseEnabled = true;
     }
     this.updateTime();
   }
@@ -63,7 +59,7 @@ export class ClockController {
   private handleIncrease(): void {
     const oneHour = 3600000;
     const oneMinute = 60000;
-
+    console.log("increaseEnabled", this.increaseEnabled);
     if (this.increaseEnabled) {
       this.model.increase();
       if (this.model.getMode() === 1) {
