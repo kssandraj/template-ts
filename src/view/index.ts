@@ -1,7 +1,7 @@
 import { Clock, Timezone } from "../model/Clock";
 import { ClockView } from "./ClockView";
 import { ClockController } from "../controller/ClockController";
-import { createNewClock } from "../controller/clockManager";
+import { ClockManager } from "../controller/clockManager";
 
 function main() {
   const clockContainerIds = [
@@ -23,11 +23,12 @@ function main() {
   }
 
   document.getElementById("oneMoreButton").addEventListener("click", () => {
+    const manager = new ClockManager();
     const timezoneSelect = document.getElementById(
       "timezoneSelect"
     ) as HTMLSelectElement;
     const selectedTimezone = timezoneSelect.value as Timezone;
-    createNewClock(selectedTimezone);
+    manager.createNewClock(selectedTimezone);
   });
 }
 
