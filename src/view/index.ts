@@ -1,7 +1,7 @@
-import { ClockModel, Timezone } from "../model/clockModel";
-import { ClockView } from "../view/clockView";
-import { ClockController } from "../controller/clockController";
-import { createNewClock } from "./clockManager";
+import { Clock, Timezone } from "../model/Clock";
+import { ClockView } from "./ClockView";
+import { ClockController } from "../controller/ClockController";
+import { createNewClock } from "../controller/clockManager";
 
 function main() {
   const clockContainerIds = [
@@ -16,7 +16,7 @@ function main() {
   ];
 
   for (let i = 0; i < clockContainerIds.length; i++) {
-    const model = new ClockModel(timezones[i]);
+    const model = new Clock(timezones[i]);
     const view = new ClockView(clockContainerIds[i]);
     const controller = new ClockController(model, view);
     controller.initialize();

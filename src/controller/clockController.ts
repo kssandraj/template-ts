@@ -1,14 +1,22 @@
-import { ClockModel } from "../model/clockModel";
-import { ClockView } from "../view/clockView";
+import { Clock } from "../model/Clock";
+import { ClockView } from "../view/ClockView";
 
 export class ClockController {
-  private model: ClockModel;
+  private model: Clock;
   private view: ClockView;
-  private updateInterval: NodeJS.Timer | undefined;
 
-  constructor(model: ClockModel, view: ClockView) {
+  private updateInterval: NodeJS.Timer | undefined;
+  private increaseEnabled: boolean;
+  private twentyFourHourFormat?: boolean;
+  private manualAdjustmentTime: number;
+
+  constructor(model: Clock, view: ClockView) {
     this.model = model;
     this.view = view;
+
+    this.manualAdjustmentTime = 0;
+    this.increaseEnabled = false;
+    this.twentyFourHourFormat = false;
 
     // Attach event handlers
     this.view.onModeChangeRequested = this.handleModeChange.bind(this);
@@ -22,10 +30,8 @@ export class ClockController {
     this.startClock();
   }
 
-  public dispose(): void {
-    if (this.updateInterval) {
-      clearInterval(this.updateInterval);
-    }
+  public setIncreaseEnabled(increaseEnabled: boolean): void {
+    this.increaseEnabled = increaseEnabled;
   }
 
   public startClock(): void {
@@ -37,17 +43,20 @@ export class ClockController {
   }
 
   private handleReset(): void {
-    this.model.setManualAdjustmentTime(0);
+    this.manualAdjustmentTime = 0;
     this.model.toggleMode(0);
     this.updateTime();
   }
 
   private handleFormat(): void {
-    this.model.setTwentyFourHourFormat(!this.model.getTwentyFourHourFormat());
+    this.twentyFourHourFormat = !this.twentyFourHourFormat;
   }
 
   private handleModeChange(): void {
     this.model.toggleMode();
+    if (this.model.getMode() === 1 || this.model.getMode() === 2) {
+      this.setIncreaseEnabled(true);
+    }
     this.updateTime();
   }
 
@@ -55,15 +64,12 @@ export class ClockController {
     const oneHour = 3600000;
     const oneMinute = 60000;
 
-    if (this.model.getIncreaseEnabled()) {
+    if (this.increaseEnabled) {
+      this.model.increase();
       if (this.model.getMode() === 1) {
-        this.model.setManualAdjustmentTime(
-          this.model.getManualAdjustmentTime() + oneHour
-        );
+        this.manualAdjustmentTime = this.manualAdjustmentTime + oneHour;
       } else if (this.model.getMode() === 2) {
-        this.model.setManualAdjustmentTime(
-          this.model.getManualAdjustmentTime() + oneMinute
-        );
+        this.manualAdjustmentTime = this.manualAdjustmentTime + oneMinute;
       }
       this.updateTime();
     }
@@ -71,16 +77,14 @@ export class ClockController {
 
   private updateTime(): void {
     // Calculate the current time considering manual adjustments
-    const now = new Date(
-      new Date().getTime() + this.model.getManualAdjustmentTime()
-    );
+    const now = new Date(new Date().getTime() + this.manualAdjustmentTime);
 
     const formatter = new Intl.DateTimeFormat("en-US", {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
       timeZone: this.model.getTimezone(),
-      hour12: !this.model.getTwentyFourHourFormat(),
+      hour12: !this.twentyFourHourFormat,
     });
 
     const formattedTime = formatter.format(now);

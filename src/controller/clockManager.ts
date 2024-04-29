@@ -1,6 +1,6 @@
-import { ClockModel, Timezone } from "../model/clockModel";
-import { ClockView } from "./clockView";
-import { ClockController } from "../controller/clockController";
+import { Clock, Timezone } from "../model/Clock";
+import { ClockView } from "../view/ClockView";
+import { ClockController } from "./ClockController";
 
 export function createNewClock(timezone: Timezone): void {
   const newClockId = `clock${document.querySelectorAll(".clock").length + 1}`;
@@ -15,7 +15,7 @@ export function createNewClock(timezone: Timezone): void {
     document.body.appendChild(newClockContainer);
   }
 
-  const model = new ClockModel();
+  const model = new Clock();
   model.setTimezone(timezone);
 
   const view = new ClockView(newClockId);
