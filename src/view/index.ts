@@ -3,6 +3,7 @@ import { ClockView } from "./ClockView";
 import { ClockController } from "../controller/ClockController";
 import { ClockManager } from "../controller/ClockManager";
 import { Matrix } from "../model/Matrix";
+import Vector from "../model/Vector";
 
 function main() {
   const clockContainerIds = [

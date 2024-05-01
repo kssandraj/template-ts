@@ -1,3 +1,5 @@
+import Vector from "./Vector";
+
 export class Matrix {
   private data: number[][];
 
@@ -67,5 +69,13 @@ export class Matrix {
       }
     }
     return new Matrix(newData);
+  }
+
+  public transformVector(vector: Vector): Vector {
+    const x =
+      this.data[0][0] * vector.x + this.data[0][1] * vector.y + this.data[0][2];
+    const y =
+      this.data[1][0] * vector.x + this.data[1][1] * vector.y + this.data[1][2];
+    return new Vector(x, y);
   }
 }
