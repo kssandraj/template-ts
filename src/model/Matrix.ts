@@ -20,6 +20,19 @@ export class Matrix {
     return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
   }
 
+  public transpose(matrix: number[][]): number[][] {
+    const transposed: number[][] = [];
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        if (!transposed[j]) {
+          transposed[j] = [];
+        }
+        transposed[j][i] = matrix[i][j];
+      }
+    }
+    return transposed;
+  }
+
   public inverse(): Matrix {
     const det = this.determinant();
     if (det === 0) {
@@ -28,23 +41,17 @@ export class Matrix {
     const [[a, b, c], [d, e, f], [g, h, i]] = this.data;
     const invDet = 1 / det;
     const newData = [
-      [
-        (e * i - f * h) * invDet,
-        (d * i - g * h) * invDet,
-        (d * h - e * g) * invDet,
-      ],
-      [
-        (b * i - c * h) * invDet,
-        (a * i - c * g) * invDet,
-        (a * h - b * g) * invDet,
-      ],
-      [
-        (b * f - c * e) * invDet,
-        (a * f - c * d) * invDet,
-        (a * e - b * d) * invDet,
-      ],
+      [e * i - f * h, (d * i - g * f) * -1, d * h - e * g],
+      [(b * i - c * h) * -1, a * i - c * g, (a * h - b * g) * -1],
+      [b * f - c * e, (a * f - c * d) * -1, a * e - b * d],
     ];
-    return new Matrix(newData);
+    const transposedMatrix = this.transpose(newData);
+
+    const inversedData = transposedMatrix.map((row) =>
+      row.map((element) => element * invDet)
+    );
+
+    return new Matrix(inversedData);
   }
 
   public multiply(other: Matrix): Matrix {

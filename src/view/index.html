@@ -28,17 +28,5 @@
         </select>
       </span>
     </div>
-
-    <script src="clockModel.js"></script>
-    <script src="clockView.js"></script>
-    <script src="clockController.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const model = new ClockModel();
-        const controller = new ClockController(model, view);
-        const view = new ClockView("clockContainer");
-        controller.initialize();
-      });
-    </script>
   </body>
 </html>
