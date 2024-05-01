@@ -68,16 +68,4 @@ export class Matrix {
     }
     return new Matrix(newData);
   }
-
-  public transformPoint(point: { x: number; y: number }): {
-    x: number;
-    y: number;
-  } {
-    const [[a, b, tx], [c, d, ty], [, , _]] = this.data;
-    const { x, y } = point;
-    return {
-      x: a * x + b * y + tx,
-      y: c * x + d * y + ty,
-    };
-  }
 }
