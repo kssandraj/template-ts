@@ -1,7 +1,7 @@
 import { Clock, Timezone } from "../model/Clock";
 import { ClockView } from "./ClockView";
 import { ClockController } from "../controller/ClockController";
-import { ClockManager } from "../controller/clockManager";
+import { ClockManager } from "../controller/ClockManager";
 
 function main() {
   const clockContainerIds = [

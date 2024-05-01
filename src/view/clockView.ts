@@ -2,37 +2,35 @@ import "./index.css";
 
 export class ClockView {
   private container: HTMLElement;
-  private screen: HTMLElement;
   private backgroundColor: string = "darkslategray";
   private textColor: string = "white";
 
   constructor(containerId: string) {
     const container = (this.container = document.getElementById(containerId));
     if (!container) throw new Error("Clock element not found");
-    this.screen = container.querySelector(".screen");
   }
 
   private attachEventListeners(): void {
     this.container.querySelectorAll(".clockBox").forEach((clockBox) => {
-      clockBox.querySelector("#modeButton")?.addEventListener("click", () => {
+      clockBox.querySelector("#modeButton").addEventListener("click", () => {
         this.onModeChangeRequested();
       });
 
       clockBox
         .querySelector("#increaseButton")
-        ?.addEventListener("click", () => {
+        .addEventListener("click", () => {
           this.onIncreaseRequested();
         });
 
-      clockBox.querySelector("#resetButton")?.addEventListener("click", () => {
+      clockBox.querySelector("#resetButton").addEventListener("click", () => {
         this.onResetRequested();
       });
 
-      clockBox.querySelector("#formatButton")?.addEventListener("click", () => {
+      clockBox.querySelector("#formatButton").addEventListener("click", () => {
         this.onFormatRequested();
       });
 
-      clockBox.querySelector("#lightButton")?.addEventListener("click", () => {
+      clockBox.querySelector("#lightButton").addEventListener("click", () => {
         this.toggleBackgroundColor();
       });
     });
@@ -46,7 +44,7 @@ export class ClockView {
               <div class="screen" style="background-color: ${
                 this.backgroundColor
               }; color: ${this.textColor}"> 
-                  <span>${time}</span>
+                  <span class="time">${time}</span>
               </div>
           </div>
           <div>
@@ -80,11 +78,32 @@ export class ClockView {
   }
 
   private updateScreenBackgroundColor(): void {
-    this.screen.style.backgroundColor = this.backgroundColor;
+    const background = this.container.querySelector(".screen") as HTMLElement;
+    background.style.backgroundColor = this.backgroundColor;
   }
 
   private updateTextColor(): void {
-    this.screen.style.color = this.textColor;
+    const backgroundText = this.container.querySelector(
+      ".screen"
+    ) as HTMLElement;
+    backgroundText.style.color = this.textColor;
+  }
+
+  public updateTime(time: string, mode: number): void {
+    this.container.querySelectorAll(".clockBox").forEach((clockBox) => {
+      clockBox.querySelector(".time").textContent = time;
+    });
+
+    this.container.querySelectorAll(".clockBox").forEach((clockBox) => {
+      const increaseButton = clockBox.querySelector(
+        "#increaseButton"
+      ) as HTMLButtonElement;
+      if (mode === 0) {
+        increaseButton.disabled = true;
+      } else {
+        increaseButton.disabled = false;
+      }
+    });
   }
 
   // Event hooks that the controller can assign to

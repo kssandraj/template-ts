@@ -73,11 +73,7 @@ export class ClockController {
     });
 
     const formattedTime = formatter.format(now);
-    this.view.render(
-      formattedTime,
-      this.model.getTimezone(),
-      this.model.getMode()
-    );
+    this.view.updateTime(formattedTime, this.model.getMode());
   }
 
   private renderView(): void {

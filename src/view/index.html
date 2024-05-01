@@ -35,8 +35,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const model = new ClockModel();
-        const view = new ClockView("clockContainer");
         const controller = new ClockController(model, view);
+        const view = new ClockView("clockContainer");
         controller.initialize();
       });
     </script>
