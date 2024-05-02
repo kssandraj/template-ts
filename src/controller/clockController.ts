@@ -28,7 +28,7 @@ export class ClockController {
     this.startClock();
   }
 
-  public startClock(): void {
+  private startClock(): void {
     // Update the clock every second
     this.updateInterval = setInterval(
       () => this.updateTime(),
