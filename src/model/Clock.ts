@@ -39,9 +39,9 @@ export class Clock {
   public increase(): void {
     const oneHour = 3600000;
     const oneMinute = 60000;
-    if (this.getMode() === 1) {
+    if (this.mode === 1) {
       this.time = this.time + oneHour;
-    } else if (this.getMode() === 2) {
+    } else if (this.mode === 2) {
       this.time = this.time + oneMinute;
     }
   }

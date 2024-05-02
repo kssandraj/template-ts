@@ -50,7 +50,6 @@ export class ClockController {
     if (this.model.getMode() === 1 || this.model.getMode() === 2) {
       this.increaseEnabled = true;
     }
-    this.updateTime();
   }
 
   private handleIncrease(): void {
