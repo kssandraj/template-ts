@@ -5,12 +5,17 @@ export class ClockView {
   private backgroundColor: string = "darkslategray";
   private textColor: string = "white";
 
-  constructor(containerId: string) {
-    const container = (this.container = document.getElementById(containerId));
-    if (!container) throw new Error("Clock element not found");
+  constructor() {
+    const { newClockContainer } = this.createDiv();
+    this.container = newClockContainer;
+    if (!this.container) throw new Error("Clock element not found");
+    this.attachEventListeners();
   }
 
-  public createDiv(): string {
+  private createDiv(): {
+    newClockId: string;
+    newClockContainer: HTMLDivElement;
+  } {
     const newClockId = `clock${document.querySelectorAll(".clock").length + 1}`;
     const newClockContainer = document.createElement("div");
     newClockContainer.id = newClockId;
@@ -23,7 +28,7 @@ export class ClockView {
       document.body.appendChild(newClockContainer);
     }
 
-    return newClockId;
+    return { newClockId, newClockContainer };
   }
 
   private attachEventListeners(): void {
