@@ -1,9 +1,6 @@
 import { Clock, Timezone } from "../model/Clock";
 import { ClockView } from "./ClockView";
 import { ClockController } from "../controller/ClockController";
-import { ClockManager } from "../controller/ClockManager";
-import { Matrix } from "../model/Matrix";
-import Vector from "../model/Vector";
 
 function main() {
   const clockContainerIds = [
@@ -25,12 +22,25 @@ function main() {
   }
 
   document.getElementById("oneMoreButton").addEventListener("click", () => {
-    const manager = new ClockManager();
+    const newClockId = `clock${document.querySelectorAll(".clock").length + 1}`;
+    const newClockContainer = document.createElement("div");
+    newClockContainer.id = newClockId;
+    newClockContainer.classList.add("clock");
+    const clocksDisplayed = document.querySelector(".clocksDisplayed");
+    if (clocksDisplayed) {
+      // Append the new clock container to the clock-box container
+      clocksDisplayed.appendChild(newClockContainer);
+    } else {
+      document.body.appendChild(newClockContainer);
+    }
     const timezoneSelect = document.getElementById(
       "timezoneSelect"
     ) as HTMLSelectElement;
     const selectedTimezone = timezoneSelect.value as Timezone;
-    manager.createNewClock(selectedTimezone);
+    const model = new Clock(selectedTimezone);
+    const view = new ClockView(newClockId);
+    const controller = new ClockController(model, view);
+    controller.initialize();
   });
 }
 

@@ -10,6 +10,22 @@ export class ClockView {
     if (!container) throw new Error("Clock element not found");
   }
 
+  public createDiv(): string {
+    const newClockId = `clock${document.querySelectorAll(".clock").length + 1}`;
+    const newClockContainer = document.createElement("div");
+    newClockContainer.id = newClockId;
+    newClockContainer.classList.add("clock");
+    const clocksDisplayed = document.querySelector(".clocksDisplayed");
+    if (clocksDisplayed) {
+      // Append the new clock container to the clock-box container
+      clocksDisplayed.appendChild(newClockContainer);
+    } else {
+      document.body.appendChild(newClockContainer);
+    }
+
+    return newClockId;
+  }
+
   private attachEventListeners(): void {
     this.container.querySelectorAll(".clockBox").forEach((clockBox) => {
       clockBox.querySelector("#modeButton").addEventListener("click", () => {
